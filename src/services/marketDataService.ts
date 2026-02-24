@@ -1,4 +1,5 @@
 import { XMLParser } from 'fast-xml-parser';
+import { StockStatistic, NewsItem } from '../types/market';
 
 const BRAPI_BASE_URL = 'https://brapi.dev/api';
 // Nota: Em um app real, o token deve vir de uma variável de ambiente (.env)

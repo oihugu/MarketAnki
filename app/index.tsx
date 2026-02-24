@@ -6,21 +6,26 @@ import { fetchTopGainersLosers, fetchNewsFromRSS } from '../src/services/marketD
 
 export default function Dashboard() {
 	const {
-		marketStatus, summary, topGainers, topLosers, news,
-		setTopGainers, setTopLosers, setNews, setSummary
+		marketStatus, summary, topGainers, topLosers, news, isLoading,
+		setTopGainers, setTopLosers, setNews, setSummary, setLoading
 	} = useMarketStore();
 
 	useEffect(() => {
 		const loadData = async () => {
-			const { gainers, losers } = await fetchTopGainersLosers();
-			setTopGainers(gainers);
-			setTopLosers(losers);
+			setLoading(true);
+			try {
+				const { gainers, losers } = await fetchTopGainersLosers();
+				setTopGainers(gainers);
+				setTopLosers(losers);
 
-			const latestNews = await fetchNewsFromRSS();
-			setNews(latestNews);
+				const latestNews = await fetchNewsFromRSS();
+				setNews(latestNews);
 
-			if (gainers.length > 0) {
-				setSummary(`O mercado apresenta movimentações interessantes hoje. ${gainers[0].symbol} lidera as altas com ${gainers[0].change.toFixed(2)}%.`);
+				if (gainers.length > 0) {
+					setSummary(`O mercado apresenta movimentações interessantes hoje. ${gainers[0].symbol} lidera as altas com ${gainers[0].change.toFixed(2)}%.`);
+				}
+			} finally {
+				setLoading(false);
 			}
 		};
 
@@ -75,11 +80,11 @@ export default function Dashboard() {
 				<View style={styles.row}>
 					<View style={styles.stockColumn}>
 						<Text style={styles.columnLabel}>Altas</Text>
-						{topGainers.length > 0 ? topGainers.map(s => renderStockCard(s, true)) : <Text style={styles.emptyText}>Carregando...</Text>}
+						{isLoading ? <Text style={styles.emptyText}>Buscando...</Text> : (topGainers.length > 0 ? topGainers.map(s => renderStockCard(s, true)) : <Text style={styles.emptyText}>Sem dados</Text>)}
 					</View>
 					<View style={[styles.stockColumn, { marginLeft: 16 }]}>
 						<Text style={styles.columnLabel}>Baixas</Text>
-						{topLosers.length > 0 ? topLosers.map(s => renderStockCard(s, false)) : <Text style={styles.emptyText}>Carregando...</Text>}
+						{isLoading ? <Text style={styles.emptyText}>Buscando...</Text> : (topLosers.length > 0 ? topLosers.map(s => renderStockCard(s, false)) : <Text style={styles.emptyText}>Sem dados</Text>)}
 					</View>
 				</View>
 
@@ -89,20 +94,24 @@ export default function Dashboard() {
 					<Text style={styles.sectionTitle}>Últimas Notícias</Text>
 				</View>
 
-				{news.map((item) => (
-					<TouchableOpacity
-						key={item.id}
-						style={styles.newsCard}
-						onPress={() => Linking.openURL(item.url)}
-					>
-						<View style={styles.newsHeader}>
-							<Text style={styles.newsSource}>{item.source}</Text>
-							<ExternalLink size={14} color="#666" />
-						</View>
-						<Text style={styles.newsTitle}>{item.title}</Text>
-						<Text style={styles.newsSummary}>{item.summary}</Text>
-					</TouchableOpacity>
-				))}
+				{isLoading ? (
+					<Text style={styles.emptyText}>Carregando feeds...</Text>
+				) : (
+					news.map((item) => (
+						<TouchableOpacity
+							key={item.id}
+							style={styles.newsCard}
+							onPress={() => Linking.openURL(item.url)}
+						>
+							<View style={styles.newsHeader}>
+								<Text style={styles.newsSource}>{item.source}</Text>
+								<ExternalLink size={14} color="#666" />
+							</View>
+							<Text style={styles.newsTitle}>{item.title}</Text>
+							<Text style={styles.newsSummary}>{item.summary}</Text>
+						</TouchableOpacity>
+					))
+				)}
 
 				<View style={{ height: 40 }} />
 			</ScrollView>
