@@ -1,0 +1,56 @@
+# 📉 MarketAnki (Nome de Desenvolvimento)
+
+O **MarketAnki** é um aplicativo mobile desenvolvido em React Native focado na educação financeira e no acompanhamento do mercado de ações brasileiro (B3). Inspirado no sistema de repetição espaçada do Anki, o app ajuda investidores a consolidar conhecimentos e manter-se atualizados com o cenário econômico diário.
+
+## 📋 Sumário
+
+- [Objetivo](#-objetivo)
+- [Funcionalidades](#-funcionalidades)
+- [Tecnologias](#-tecnologias)
+- [Como Funciona?](#-como-funciona)
+- [Fluxo de Aprendizado](#fluxo-de-aprendizado)
+
+## 🚀 Objetivo
+
+O objetivo principal é transformar o hábito de acompanhar o mercado em um processo de aprendizado contínuo. Através de flashcards e conteúdo gerado por IA, o usuário aprende como decisões políticas, econômicas e fatos relevantes impactam o preço das ações e a dinâmica da B3.
+
+## ✨ Funcionalidades
+
+- **📰 Notícias e Cotações**: Acompanhamento em tempo real (ou com delay regulamentar) de notícias e preços de ativos na B3.
+- **📢 Fatos Relevantes**: Notificações e resumos de fatos relevantes que impactam o mercado diariamente.
+- **🧠 Sistema de Repetição Espaçada (SRS)**: Flashcards baseados em acontecimentos reais do mercado para reforçar o aprendizado de conceitos e correlações.
+- **🤖 Conteúdo Inteligente**: Uso de IA Generativa no servidor para criar cards de estudo dinâmicos e explicar o "porquê" de certas movimentações de mercado.
+- **📊 Auto-avaliação**: Feedback do usuário sobre seu desempenho (Bem, Mal, Neutro) para otimizar o algoritmo de repetição.
+
+## 🛠️ Tecnologias
+
+- **Frontend**: [React Native](https://reactnative.dev/)
+- **Inteligência Artificial**: IA Generativa para curadoria e criação de conteúdo.
+- **Dados de Mercado**: Integração com APIs do mercado financeiro brasileiro.
+
+## 📖 Como Funciona?
+
+1.  O usuário recebe uma notícia ou fato relevante do dia.
+2.  A IA gera um flashcard contextualizado sobre aquele evento.
+3.  O usuário avalia seu entendimento sobre o impacto daquele fato no mercado.
+4.  O sistema agenda a próxima revisão baseado no feedback, garantindo a retenção do aprendizado a longo prazo.
+
+## Fluxo de Aprendizado
+
+```mermaid
+graph TD
+    A[Notícia/Fato Relevante] --> B{IA Generativa}
+    B --> C[Card de Estudo / Flashcard]
+    C --> D[Usuário Estuda e Avalia]
+    D --> E{Desempenho}
+    E -->|Bem| F[Próxima Revisão: Longo Prazo]
+    E -->|Neutro| G[Próxima Revisão: Médio Prazo]
+    E -->|Mal| H[Próxima Revisão: Curto Prazo]
+    F --> C
+    G --> C
+    H --> C
+```
+
+---
+
+*MarketAnki - Transformando informação em conhecimento financeiro.*
