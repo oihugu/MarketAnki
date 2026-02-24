@@ -36,5 +36,20 @@ Para evitar conflitos, seguimos estas regras:
 3.  **Frontend** cria os componentes visuais consumindo essa Store.
 4.  **Ambos** validam a integração no Expo Go.
 
+## 🌿 Fluxo de Git e Branches
+
+Para manter o código organizado, nunca trabalhamos diretamente na `master` (ou `main`).
+
+### Nomeclatura de Branches
+- **Backend / Data Science:** `ds/[nome-da-feature]` (ex: `ds/srs-sm2-logic`)
+- **Frontend / UI:** `fe/[nome-da-feature]` (ex: `fe/study-screen-ui`)
+- **Bugfixes:** `fix/[nome-do-bug]`
+
+### Ciclo de Integração
+1.  Crie sua branch a partir da `master` mais recente.
+2.  Desenvolva e valide localmente no Expo Go.
+3.  Abra um **Pull Request (PR)** para a `master`.
+4.  O par (DS ou Frontend) deve revisar o código garantindo que o contrato de dados (`src/types`) não foi quebrado.
+
 ---
 *MarketAnki - Transformando informação em conhecimento financeiro.*
